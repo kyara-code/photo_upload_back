@@ -12,6 +12,9 @@ import { FileService } from "./file.service";
 export class FileController {
     constructor(private fileService: FileService) {}
 
+    @ApiOperation({
+        summary: "Uploads a file (img)",
+    })
     @ApiConsumes("multipart/form-data")
     @ApiBody({
         schema: {
@@ -59,8 +62,9 @@ export class FileController {
         return await this.fileService.deleteFile(id);
     }
 
+    // TODO: paginate response
     @ApiOperation({
-        summary: "Gets a file (img)",
+        summary: "Gets all files (img)",
     })
     @ApiConsumes("multipart/form-data")
     @ApiResponse({
@@ -80,6 +84,7 @@ export class FileController {
     })
     @Get(':id')
     async get_file(@Param("id") id: string) {
+        console.log('id in get single: ', id)
         return await this.fileService.downloadFile(id);
     }
 }

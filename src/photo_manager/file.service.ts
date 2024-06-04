@@ -65,6 +65,10 @@ export class FileService {
       where: { id },
     });
 
+    if(!blob){
+      return 
+    }
+
     return blob.softRemove();
   }
 }
