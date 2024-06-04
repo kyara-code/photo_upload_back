@@ -1,5 +1,6 @@
 export default {
   UPLOAD_DIR: process.env.UPLOAD_DIR || 'files',
+  BASE_IMG_URL: process.env.BASE_IMG_URL || "http://localhost:8000/files/",
   database: {
       host: process.env.DATABASE_HOST || "localhost",
       port: parseInt(process.env.DATABASE_PORT, 10) || 5432,

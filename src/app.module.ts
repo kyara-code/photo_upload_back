@@ -11,7 +11,6 @@ import configuration from './config/configuration';
       type: "postgres",
       autoLoadEntities: true,
       synchronize: true,
-      logging: true,
       ...configuration.database
     }),
     FileModule,

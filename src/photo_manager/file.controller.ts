@@ -1,6 +1,6 @@
-import { Controller, ForbiddenException, Post, Query, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
+import { Controller, Delete, ForbiddenException, Get, Param, Post, Query, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
-import { ApiBearerAuth, ApiBody, ApiConsumes, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiBody, ApiConsumes, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { randomUUID } from "crypto";
 import { DeepPartial } from "typeorm";
 import { BlobDTO } from "./blob.dto";
@@ -46,5 +46,40 @@ export class FileController {
         };
 
         return this.fileService.uploadFile(newBlob, file);
-  }
+    }
+
+    @ApiOperation({
+        summary: "Deletes a file (img)",
+    })
+    @ApiResponse({
+        status: 200,
+    })
+    @Delete(":id")
+    async delete_file(@Param("id") id: string) {
+        return await this.fileService.deleteFile(id);
+    }
+
+    @ApiOperation({
+        summary: "Gets a file (img)",
+    })
+    @ApiConsumes("multipart/form-data")
+    @ApiResponse({
+        status: 200,
+    })
+    @Get('all')
+    async get_all_files() {
+        return await this.fileService.downloadAllFiles();
+    }
+
+    @ApiOperation({
+        summary: "Gets a file (img)",
+    })
+    @ApiConsumes("multipart/form-data")
+    @ApiResponse({
+        status: 200,
+    })
+    @Get(':id')
+    async get_file(@Param("id") id: string) {
+        return await this.fileService.downloadFile(id);
+    }
 }
